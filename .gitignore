@@ -1,7 +1,6 @@
 data_base/*
 *.pyc
 *.csv
-raw/*
-docs/*
+docs/QA/*
 vectorDB/*
 
