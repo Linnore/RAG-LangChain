@@ -1,0 +1,7 @@
+data_base/*
+*.pyc
+*.csv
+raw/*
+docs/*
+vectorDB/*
+
