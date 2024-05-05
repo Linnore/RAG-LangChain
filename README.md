@@ -29,14 +29,17 @@ conda activate nlp
 #### build VectorDB for demo QA files
 python init_vectorDB.py --docs_dir ./docs/demo --persist_dir ./vectorDB/demo --embedder ../autodl-tmp/model/bge-m3
 
+#### build VectorDB for a complete drug dictionary
+python init_vectorDB.py --docs_dir ./docs/drug --persist_dir ./vectorDB/drug --embedder ../autodl-tmp/model/bge-m3 --chunk_size 100
+
 #### build VectorDB for complete QA files
 python init_vectorDB.py --docs_dir ./docs/QA --persist_dir ./vectorDB/QA --embedder ../autodl-tmp/model/bge-m3 --chunk_size 100
-
-#### build VectorDB for complete drug dictionary
-python init_vectorDB.py --docs_dir ./docs/drug --persist_dir ./vectorDB/drug --embedder ../autodl-tmp/model/bge-m3 --chunk_size 100
 ```
 
 We use bge-m3 as the embedder. Please specify the link to your embedder models by `--embedder`.
+
+**Note that to build to vectorDB for the whole QA dataset, one can use our provided codebase in the report or need to download and process the QA data from `https://github.com/Toyhom/Chinese-medical-dialogue-data`**
+
 
 ## Step 2. Launch Web-UI
 
