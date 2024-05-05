@@ -1,6 +1,6 @@
 # LangChain Simple RAG Pipeline:
 
-This repo implement a simple RAG framework for a Pharmacy store chatbot. We use medical QA data from https://github.com/Toyhom/Chinese-medical-dialogue-data and a virtue inventory by web crawling from https://www.dayi.org.cn/ to build the knowledge database.
+This repo implements a simple RAG framework for a Pharmacy store chatbot. We use medical QA data from https://github.com/Toyhom/Chinese-medical-dialogue-data and a virtue inventory by web crawling from https://www.dayi.org.cn/ to build the knowledge database.
 
 ## Medical QA data filtering 
 
@@ -13,9 +13,10 @@ Please first prepare an environment that can run ChatGLM3-6B.
 Then, 
 ```bash
 
-conda activate nlp
 pip install langchain gradio chromadb sentence-transformers unstructured markdown
 ```
+
+**If you want to launch the system with our provided models, for simplicity, please unzip the models under the relative path `../autodl-tmp/model/`**
 
 ## Step 1. Build VectorDB
 ```bash
@@ -35,34 +36,31 @@ python init_vectorDB.py --docs_dir ./docs/QA --persist_dir ./vectorDB/QA --embed
 python init_vectorDB.py --docs_dir ./docs/drug --persist_dir ./vectorDB/drug --embedder ../autodl-tmp/model/bge-m3 --chunk_size 100
 ```
 
-We use bge-m3 as the embedder.
+We use bge-m3 as the embedder. Please specify the link to your embedder models by `--embedder`.
 
 ## Step 2. Launch Web-UI
-```bash
-
-cd RAG
-conda activate nlp
-
-```python
 
 
-# ##  chat with demo QA FILES
+# ##  chat with demo QA FILES & drug FILES
 python run_gradio.py --comparison_mode --verbose --QA_vectordb ./vectorDB/demo --drug_dict_vectordb ./vectorDB/drug --embedder ../autodl-tmp/model/bge-m3 --llm ../autodl-tmp/model/chatglm3-6b
 
 # ##  chat with complete QA & drug FILES
+python run_gradio_new.py  --verbose --QA_vectordb ./vectorDB/QA --drug_dict_vectordb ./vectorDB/drug --embedder ../autodl-tmp/model/bge-m3 --llm ../autodl-tmp/model/chatglm3-6b 
+
+# ##  chat with complete QA & drug FILES & Enable context classification and BERT recommmandation
 python run_gradio_new.py  --verbose --QA_vectordb ./vectorDB/QA --drug_dict_vectordb ./vectorDB/drug --embedder ../autodl-tmp/model/bge-m3 --llm ../autodl-tmp/model/chatglm3-6b --bert_recommand --context_cls
 
 ```
-
  - `comparison_mode` will output the response with and without RAG.
- - `verbose` enable the verbose mode of LangChain. The full prompt will be display in the terminal.
- - `bert_recommand` will also load and output the recommandation using BERT in the web GUI.
+ - `verbose` enables the verbose mode of LangChain. The full prompt will be displayed in the terminal.
+ - `bert_recommand` will also load and output the recommendation using BERT in the web GUI.
  - `context_cls` will load and output the medical context classification using BERT in the web GUI.
  - `embedder` dir of the embedder models from Huggingface. Change it to the dir of your local embedder.
  - `llm` dir of the language model from Huggingface. Change it to the dir of your local llm.
  - `drug_dict_vectordb` the vector database for the inventory information.
  - ``
 
+**Note that to display the BERT context classification and recommendation, please unzip our pretrained models under the relative path `../autodl-tmp/model/`**
 
 【测试案例】
 
