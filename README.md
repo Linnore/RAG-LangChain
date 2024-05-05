@@ -40,7 +40,7 @@ We use bge-m3 as the embedder. Please specify the link to your embedder models b
 
 ## Step 2. Launch Web-UI
 
-
+```
 # ##  chat with demo QA FILES & drug FILES
 python run_gradio.py --comparison_mode --verbose --QA_vectordb ./vectorDB/demo --drug_dict_vectordb ./vectorDB/drug --embedder ../autodl-tmp/model/bge-m3 --llm ../autodl-tmp/model/chatglm3-6b
 
